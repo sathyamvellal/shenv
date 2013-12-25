@@ -10,6 +10,23 @@ Why not have different environments for each and everything you do? #thethought
 
 1. [Bash](https://github.com/sathyamvellal/shenv/tree/master/bash/)
 
+
+### Advantages/Features
+
+1. You can create closed environments for different projects/activities that you do.
+2. if you just `cd`, you won't end up in the home directory, you land in the environment's root directory which you specify. 
+
+### Instructions and Usage
+
+For bash users
+
+1. Copy the envrc file `bash/.bashenvrc` to a location you desire and source it in your `.bashrc`
+2. You then need to mark a folder for storing all environment scripts that are created from the envrc. This is a folder of your choice. Just set the variable `SHENV_HOME` at line 3 in the envrc file.
+3. To create a new environment, use `envcreate <name> <directory>` where <name> is the name of the environment and <directory> is the path to the environment's root.
+4. To start an environment, use `envstart <name>` where name is the name of the environment
+5. Similarly, to end the environment, use `envend <name`. 
+6. You can add all your custom aliases, functions, environment variables in the envrc file from line #23 and clean them up from line #29.
+
 ### License
 
 The MIT License (MIT)
