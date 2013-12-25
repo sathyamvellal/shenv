@@ -1,0 +1,82 @@
+#!/bin/bash
+
+SHENV_HOME=/home/sathyam/shenv
+
+function envcreate()
+{
+    echo \
+"#!/bin/bash
+
+PROMPT_1=\"$2\" # First part of the prompt
+PROMPT_2=\"$3\" # Second part of the prompt
+# Example : (env_name)prompt_1@prompt_2 : /$ 
+ENV_ROOT=\"$4\" # The root directory of the environment
+
+envsetup
+
+### Enter your aliases, functions, variables, etc below ###
+
+
+### Enter cleanup code in the function below ###
+function end()
+{
+    ## Enter cleanup code here ##
+
+    envend # This should be executed last
+}
+
+" > $SHENV_HOME/$1-shenv.sh
+}
+
+function envstart()
+{
+    if ls $SHENV_HOME/$1-shenv.sh >/dev/null 2>&1; then
+        ENV_NAME=$1
+        . $SHENV_HOME/$1-shenv.sh
+    fi
+}
+
+function envend()
+{
+    unset end
+
+    cd $OLD_CWD
+    unset OLD_CWD
+
+    unset ENV_NAME
+    unset ENV_ROOT
+    unset PROMPT_1
+    unset PROMPT_2
+
+    PS1=$OLD_PS1
+    unset OLD_PS1
+    PATH=$OLD_PATH
+    unset OLD_PATH
+
+    unset -f chdir
+    unalias cd    
+}
+
+function envsetup()
+{
+    OLD_CWD=$PWD
+    OLD_PS1=$PS1
+    OLD_PATH=$PATH
+
+    ### Place custom PS1 here ###
+    PS1="$PROMPT_1@$PROMPT_2 : \W\$ "
+
+    PS1="($ENV_NAME)$PS1"
+
+    function chdir {
+        if [ "$1" == "" ]; then
+            cd $ENV_ROOT
+            PWD="/"
+        else
+            cd $1
+        fi
+    }
+    alias cd='chdir'
+
+    cd
+}
