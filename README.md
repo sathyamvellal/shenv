@@ -27,6 +27,11 @@ For bash users
 5. Similarly, to end the environment, use `envend <name>`. 
 6. You can add all your custom aliases, functions, environment variables in the envrc file from [line #23][1] and clean them up from [line #29][2].
 
+### Coming Next
+
+1. Support for more shells
+2. Possibly more features
+
 ### License
 
 The MIT License (MIT)
