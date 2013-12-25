@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SHENV_HOME=
+SHENV_HOME=/home/sathyam/shenv
 
 if [ "$SHENV_HOME" == "" ]; then
     echo "Set the SHENV_HOME variable in the envrc file ..."
@@ -15,10 +15,7 @@ function envcreate()
         echo \
 "#!/bin/bash
 
-PROMPT_1=\"$2\" # First part of the prompt
-PROMPT_2=\"$3\" # Second part of the prompt
-# Example : (env_name)prompt_1@prompt_2 : /$ 
-ENV_ROOT=\"$4\" # The root directory of the environment
+ENV_ROOT=\"$2\" # The root directory of the environment
 
 envsetup
 
@@ -26,11 +23,12 @@ envsetup
 
 
 ### Enter cleanup code in the function below ###
-function end()
+function envend()
 {
     ## Enter cleanup code here ##
 
-    envend # This should be executed last
+
+    envend_super # This should be executed last
 }
 
 " > $SHENV_HOME/$1-shenv.sh
@@ -40,25 +38,23 @@ function end()
 function envstart()
 {
     if ls $SHENV_HOME/$1-shenv.sh >/dev/null 2>&1; then
-        if ! type end >/dev/null 2>&1; then
+        if ! type envend >/dev/null 2>&1; then
             ENV_NAME=$1
             . $SHENV_HOME/$1-shenv.sh
         fi
     fi
 }
 
-function envend()
+function envend_super()
 {
-    if type end >/dev/null 2>&1; then
-        unset end
+    if type envend >/dev/null 2>&1; then
+        unset envend
 
         cd $OLD_CWD
         unset OLD_CWD
 
         unset ENV_NAME
         unset ENV_ROOT
-        unset PROMPT_1
-        unset PROMPT_2
 
         PS1=$OLD_PS1
         unset OLD_PS1
@@ -72,13 +68,13 @@ function envend()
 
 function envsetup()
 {
-    if ! type end >/dev/null 2>&1; then   
+    if ! type envend >/dev/null 2>&1; then   
         OLD_CWD=$PWD
         OLD_PS1=$PS1
         OLD_PATH=$PATH
 
         ### Place custom PS1 here ###
-        PS1="$PROMPT_1@$PROMPT_2 : \W\$ "
+        PS1="\u@\h : \W\$ "
 
         PS1="($ENV_NAME)$PS1"
 
@@ -92,6 +88,6 @@ function envsetup()
         }
         alias cd='chdir'
 
-        cd
+        chdir
     fi
 }
