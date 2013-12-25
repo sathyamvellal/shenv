@@ -4,7 +4,10 @@ SHENV_HOME=/home/sathyam/shenv
 
 function envcreate()
 {
-    echo \
+    if [ -f $SHENV_HOME/$1-shenv.sh ]; then
+        echo "Environment already exists. Skipping ..."
+    else
+        echo \
 "#!/bin/bash
 
 PROMPT_1=\"$2\" # First part of the prompt
@@ -26,57 +29,64 @@ function end()
 }
 
 " > $SHENV_HOME/$1-shenv.sh
+    fi
 }
 
 function envstart()
 {
     if ls $SHENV_HOME/$1-shenv.sh >/dev/null 2>&1; then
-        ENV_NAME=$1
-        . $SHENV_HOME/$1-shenv.sh
+        if ! type end >/dev/null 2>&1; then
+            ENV_NAME=$1
+            . $SHENV_HOME/$1-shenv.sh
+        fi
     fi
 }
 
 function envend()
 {
-    unset end
+    if type end >/dev/null 2>&1; then
+        unset end
 
-    cd $OLD_CWD
-    unset OLD_CWD
+        cd $OLD_CWD
+        unset OLD_CWD
 
-    unset ENV_NAME
-    unset ENV_ROOT
-    unset PROMPT_1
-    unset PROMPT_2
+        unset ENV_NAME
+        unset ENV_ROOT
+        unset PROMPT_1
+        unset PROMPT_2
 
-    PS1=$OLD_PS1
-    unset OLD_PS1
-    PATH=$OLD_PATH
-    unset OLD_PATH
+        PS1=$OLD_PS1
+        unset OLD_PS1
+        PATH=$OLD_PATH
+        unset OLD_PATH
 
-    unset -f chdir
-    unalias cd    
+        unset -f chdir
+        unalias cd  
+    fi  
 }
 
 function envsetup()
 {
-    OLD_CWD=$PWD
-    OLD_PS1=$PS1
-    OLD_PATH=$PATH
+    if ! type end >/dev/null 2>&1; then   
+        OLD_CWD=$PWD
+        OLD_PS1=$PS1
+        OLD_PATH=$PATH
 
-    ### Place custom PS1 here ###
-    PS1="$PROMPT_1@$PROMPT_2 : \W\$ "
+        ### Place custom PS1 here ###
+        PS1="$PROMPT_1@$PROMPT_2 : \W\$ "
 
-    PS1="($ENV_NAME)$PS1"
+        PS1="($ENV_NAME)$PS1"
 
-    function chdir {
-        if [ "$1" == "" ]; then
-            cd $ENV_ROOT
-            PWD="/"
-        else
-            cd $1
-        fi
-    }
-    alias cd='chdir'
+        function chdir {
+            if [ "$1" == "" ]; then
+                cd $ENV_ROOT
+                PWD="/"
+            else
+                cd $1
+            fi
+        }
+        alias cd='chdir'
 
-    cd
+        cd
+    fi
 }
