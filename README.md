@@ -25,7 +25,7 @@ For bash users
 3. To create a new environment, use `envcreate <name> <directory>` where <name> is the name of the environment and <directory> is the path to the environment's root.
 4. To start an environment, use `envstart <name>` where name is the name of the environment
 5. Similarly, to end the environment, use `envend <name`. 
-6. You can add all your custom aliases, functions, environment variables in the envrc file from line #23 and clean them up from line #29.
+6. You can add all your custom aliases, functions, environment variables in the envrc file from [line #23][1] and clean them up from [line #29][2].
 
 ### License
 
@@ -50,3 +50,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+[1]: https://github.com/sathyamvellal/shenv/blob/master/bash/.bashenvrc#L23
+[2]: https://github.com/sathyamvellal/shenv/blob/master/bash/.bashenvrc#L29

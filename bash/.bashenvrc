@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SHENV_HOME=/home/sathyam/shenv
+SHENV_HOME=
 
 if [ "$SHENV_HOME" == "" ]; then
     echo "Set the SHENV_HOME variable in the envrc file ..."
