@@ -2,7 +2,7 @@ Shell Environment
 =================
 
 #### Why do you need this?
-
+ 
 Let's say you are working on something and you've cd'ed some couple of directories deep in your filesystem, you have set up your own aliases, your own functions and other shell variables which help you in executing what you are working on better. Don't you get irritated if you want to open a terminal and want to cd every time, create these functions/variables/aliases, etc? Yes, I do know that .rc is present for that reason, but if you've got a lot of stuff, your .rc becomes pretty big with a lot of stuff!  
 Why not have different environments for each and everything you do? #thethought
 
@@ -28,9 +28,13 @@ For bash users
 6. You can add all your custom aliases, functions, environment variables in the envrc file from [line #23][1] and clean them up from [line #29][2].
 
 ### Coming Next
-
+ 
 1. Support for more shells
 2. Possibly more features
+
+### Queries/Suggestions
+
+You can post Queries or suggestions in http://ost.io/@sathyamvellal/shenv
 
 ### License
 
