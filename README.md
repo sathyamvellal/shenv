@@ -1,10 +1,9 @@
-Shell Environment
-=================
+Shell Environments v1.1
+=======================
 
 #### Why do you need this?
  
-Let's say you are working on something and you've cd'ed some couple of directories deep in your filesystem, you have set up your own aliases, your own functions and other shell variables which help you in executing what you are working on better. Don't you get irritated if you want to open a terminal and want to cd every time, create these functions/variables/aliases, etc? Yes, I do know that .rc is present for that reason, but if you've got a lot of stuff, your .rc becomes pretty big with a lot of stuff!  
-Why not have different environments for each and everything you do? #thethought
+Let's say you are working on something and you've cd'ed to directories deep in your filesystem, you have set up your own aliases, your own functions and other shell variables which help you in executing what you are working on better. Don't you get irritated if you want to open a terminal and want to cd every time, create these functions/variables/aliases, etc? ShEnv helps you in creating mini environments for each of such project directories!
 
 ### Shell Support
 
@@ -14,27 +13,42 @@ Why not have different environments for each and everything you do? #thethought
 ### Advantages/Features
 
 1. You can create closed environments for different projects/activities that you do.
-2. if you just `cd`, you won't end up in the home directory, you land in the environment's root directory which you specify. 
+2. While in an environment, if you just `cd` in your terminal, you won't end up in the home directory but rather in the environment's root directory which you specify. 
+3. Create variables, alises and functions for an environment and don't even worry about unsetting/unaliasing them!
 
 ### Instructions and Usage
 
 For bash users
 
 1. Copy the envrc file `bash/.bashenvrc` to a location you desire and source it in your `.bashrc`
-2. You then need to mark a folder for storing all environment scripts that are created from the envrc. This is a folder of your choice. Just set the variable `SHENV_HOME` at line 3 in the envrc file.
-3. To create a new environment, use `envcreate <name> <directory>` where *name* is the name of the environment and *directory* is the path to the environment's root. Note that you must enter the *absolute path*
+2. You then need to mark a folder for storing all environment scripts that ShEnv creates for you. This is a folder of your choice. Just set the variable `SHENV_HOME` at line 3 in the envrc file.
+3. To create a new environment, use `envcreate <name> <directory>` where **name** is the name of the environment and **directory** is the *absolute* path to the environment's root.
 4. To start an environment, use `envstart <name>` where name is the name of the environment
 5. Similarly, to end the environment, use `envend <name>`. 
-6. You can add all your custom aliases, functions, environment variables in the envrc file from [line #23][1] and clean them up from [line #29][2].
+6. You can add all your custom aliases, functions, environment variables in the `envinit` funciton in `<name>.shenv.sh` that is created at your `SHENV_HOME` directory.
+
+#### An example (for bash)
+
+There are three associative arrays that ShEnv uses. `variables`, `aliases` and `functions`.  
+You can use them as shown below -
+
+```bash
+variables[FILE]='$ENV_ROOT/file.txt'
+aliases[run]='rake generate' && 'rake preview'
+functions[mkcd]='mkdir -p $1 && cd $1'
+```
+
+Once you start the environment with `envstart`, you can use these like any othe shell variable, alias or a function. Like so -
+
+```bash
+cat $FILE
+run # rake generate && rake preview
+mkcd foo # create directory 'foo' and cd to it
+```
 
 ### Coming Next
  
-1. Support for more shells
-2. Possibly more features
-
-### Queries/Suggestions
-
-You can post Queries or suggestions in http://ost.io/@sathyamvellal/shenv
+1. Suport for Z-Shell
 
 ### License
 
