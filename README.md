@@ -30,7 +30,7 @@ For bash users
 #### An example (for bash)
 
 There are three associative arrays that ShEnv uses. `variables`, `aliases` and `functions`.  
-You can use them as shown below -
+You populate these in the `envinit` function (as specified above). Like so -
 
 ```bash
 variables[FILE]='$ENV_ROOT/file.txt'
@@ -38,7 +38,7 @@ aliases[run]='rake generate' && 'rake preview'
 functions[mkcd]='mkdir -p $1 && cd $1'
 ```
 
-Once you start the environment with `envstart`, you can use these like any othe shell variable, alias or a function. Like so -
+Once you start the environment with `envstart`, you can use these like any other shell variable, alias or a function. Like so -
 
 ```bash
 cat $FILE
