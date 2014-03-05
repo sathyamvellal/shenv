@@ -17,10 +17,15 @@ function envcreate()
 
 ENV_ROOT=\"$2\" # The root directory of the environment
 
+### Enter your variables, aliases and functions, etc in the respective arrays
+function envinit() {
+    ### Example
+    # variables[variable_name]='value'
+    # aliases[alias_name]='alias_value'
+    # functions[function_name]='function_body #note the single quotes!'
+}
+
 envsetup
-
-### Enter your aliases, functions, variables, etc below ###
-
 
 ### Enter cleanup code in the function below ###
 function envend()
@@ -50,6 +55,14 @@ function envend_super()
     if type envend >/dev/null 2>&1; then
         unset envend
 
+        for key in ${!variables[@]}; do unset $key; done
+        for key in ${!aliases[@]}; do unalias $key; done
+        for key in ${!functions[@]}; do unset -f $key; done
+
+        unset variables
+        unset aliases
+        unset functions
+
         cd $OLD_CWD
         unset OLD_CWD
 
@@ -62,7 +75,7 @@ function envend_super()
         unset OLD_PATH
 
         unset -f chdir
-        unalias cd  
+        unalias cd
     fi  
 }
 
@@ -74,7 +87,7 @@ function envsetup()
         OLD_PATH=$PATH
 
         ### Place custom PS1 here ###
-        PS1="\u@\h : \W\$ "
+        # PS1="\u@\h : \W\$ "
 
         PS1="($ENV_NAME)$PS1"
 
@@ -89,5 +102,15 @@ function envsetup()
         alias cd='chdir'
 
         chdir
+
+        declare -Ag variables
+        declare -Ag aliases
+        declare -Ag functions
+
+        envinit
+
+        for key in ${!variables[@]}; do eval "$key=${variables[$key]}"; done
+        for key in ${!aliases[@]}; do alias $key=${aliases[$key]}; done
+        for key in ${!functions[@]}; do eval "$key() { ${functions[$key]} }"; done
     fi
 }
