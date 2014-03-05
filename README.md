@@ -35,7 +35,7 @@ You populate these in the `envinit` function (as specified above). Like so -
 ```bash
 variables[FILE]='$ENV_ROOT/file.txt'
 aliases[run]='rake generate' && 'rake preview'
-functions[mkcd]='mkdir -p $1 && cd $1'
+functions[mkcd]='mkdir -p $1 && cd $1' # NOTE the single quotes !!
 ```
 
 Once you start the environment with `envstart`, you can use these like any other shell variable, alias or a function. Like so -
