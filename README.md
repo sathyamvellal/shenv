@@ -23,9 +23,9 @@ For bash users
 1. Copy the envrc file `bash/.bashenvrc` to a location you desire and source it in your `.bashrc`
 2. You then need to mark a folder for storing all environment scripts that SHENV creates for you. This is a folder of your choice. Just set the variable `SHENV_HOME` at line 3 in the envrc file.
 3. To create a new environment, use `envcreate <name> <directory>` where **name** is the name of the environment and **directory** is the *absolute* path to the environment's root.
-4. To start an environment, use `envstart <name>` where name is the name of the environment
+4. To start an environment, use `envstart <name>` where **name** is the name of the environment
 5. Similarly, to end the environment, use `envend <name>`. 
-6. You can add all your custom aliases, functions, environment variables in the `envinit` funciton in `<name>.shenv.sh` that is created at your `SHENV_HOME` directory.
+6. You can add all your custom aliases, functions, environment variables in the `envinit` function in `<name>.shenv.sh` that is created at your `SHENV_HOME` directory.
 
 #### An example (for bash)
 
@@ -34,7 +34,7 @@ You populate these in the `envinit` function (as specified above). Like so -
 
 ```bash
 variables[FILE]='$ENV_ROOT/file.txt'
-aliases[run]='rake generate' && 'rake preview'
+aliases[run]='rake generate && rake preview'
 functions[mkcd]='mkdir -p $1 && cd $1' # NOTE the single quotes !!
 ```
 
@@ -46,7 +46,7 @@ run # rake generate && rake preview
 mkcd foo # create directory 'foo' and cd to it
 ```
 Note that SHENV is not yet able to update your `PATH` or `CLASSPATH` in an environment and later restore them. 
-
+ 
 ### Coming Next
  
 1. Update variables in an environment and restore them later. (like `PATH`, `CLASSPATH`, etc)
