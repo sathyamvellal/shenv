@@ -45,7 +45,7 @@ cat $FILE
 run # rake generate && rake preview
 mkcd foo # create directory 'foo' and cd to it
 ```
-Note that ShEnv is not yet able to update your `PATH` or `CLASSPATH` in an envrionment and later restore them. 
+Note that SHENV is not yet able to update your `PATH` or `CLASSPATH` in an envrionment and later restore them. 
 
 ### Coming Next
  
