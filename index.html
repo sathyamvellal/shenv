@@ -78,7 +78,7 @@
 <li>To create a new environment, use <code>envcreate &lt;name&gt; &lt;directory&gt;</code> where <strong>name</strong> is the name of the environment and <strong>directory</strong> is the <em>absolute</em> path to the environment's root.</li>
 <li>To start an environment, use <code>envstart &lt;name&gt;</code> where name is the name of the environment</li>
 <li>Similarly, to end the environment, use <code>envend &lt;name&gt;</code>. </li>
-<li>You can add all your custom aliases, functions, environment variables in the <code>envinit</code> function in <code>&lt;name&gt;.shenv.sh</code> that is created at your <code>SHENV_HOME</code> directory.</li>
+<li>You can add all your custom aliases, functions, environment variables in the <code>envinit</code> function in <code>&lt;name&gt;-shenv.sh</code> that is created at your <code>SHENV_HOME</code> directory.</li>
 </ol><h4>
 <a name="an-example-for-bash" class="anchor" href="#an-example-for-bash"><span class="octicon octicon-link"></span></a>An example (for bash)</h4>
 
@@ -86,7 +86,7 @@
 You populate these in the <code>envinit</code> function (as specified above). Like so -</p>
 
 <div class="highlight highlight-bash"><pre>variables<span class="o">[</span>FILE<span class="o">]=</span><span class="s1">'$ENV_ROOT/file.txt'</span>
-aliases<span class="o">[</span>run<span class="o">]=</span><span class="s1">'rake generate'</span> <span class="o">&amp;&amp;</span> <span class="s1">'rake preview'</span>
+aliases<span class="o">[</span>run<span class="o">]=</span><span class="s1">'rake generate</span> <span class="o">&amp;&amp;</span> <span class="s1">rake preview'</span>
 functions<span class="o">[</span>mkcd<span class="o">]=</span><span class="s1">'mkdir -p $1 &amp;&amp; cd $1'</span> <span class="c"># NOTE the single quotes !!</span>
 </pre></div>
 
