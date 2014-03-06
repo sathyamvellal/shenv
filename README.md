@@ -45,12 +45,12 @@ cat $FILE
 run # rake generate && rake preview
 mkcd foo # create directory 'foo' and cd to it
 ```
-Note that SHENV is not yet able to update your `PATH` or `CLASSPATH` in an envrionment and later restore them. 
+Note that SHENV is not yet able to update your `PATH` or `CLASSPATH` in an environment and later restore them. 
 
 ### Coming Next
  
 1. Update variables in an environment and restore them later. (like `PATH`, `CLASSPATH`, etc)
-2. Suport for Z-Shell.
+2. Support for Z-Shell.
 
 ### License
 
