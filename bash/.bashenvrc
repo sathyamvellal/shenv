@@ -109,7 +109,7 @@ function envsetup()
 
         envinit
 
-        for key in ${!variables[@]}; do eval "$key=${variables[$key]}"; done
+        for key in ${!variables[@]}; do eval "export $key=${variables[$key]}"; done
         for key in ${!aliases[@]}; do alias $key="${aliases[$key]}"; done
         for key in ${!functions[@]}; do eval "$key() { ${functions[$key]} }"; done
     fi
