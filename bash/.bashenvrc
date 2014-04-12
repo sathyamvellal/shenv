@@ -19,6 +19,7 @@ ENV_ROOT=\"$2\" # The root directory of the environment
 
 ### Enter your variables, aliases and functions, etc in the respective arrays
 function envinit() {
+    echo > /dev/null
     ### Example
     # variables[variable_name]='value'
     # aliases[alias_name]='alias_value'
