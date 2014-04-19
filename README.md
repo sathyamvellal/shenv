@@ -2,11 +2,11 @@ Shell Environments v1.1
 =======================
 
 #### Why do you need this?
- 
+  
 Let's say you are working on something and you've cd'ed to directories deep in your filesystem, you have set up your own aliases, your own functions and other shell variables which help you in executing what you are working on better. Don't you get irritated if you want to open a terminal and want to cd every time, create these functions/variables/aliases, etc? SHENV helps you in creating mini environments for each of such project directories!
 
 ### Shell Support
-
+ 
 1. [Bash](https://github.com/sathyamvellal/shenv/tree/master/bash/)
 
 
@@ -17,11 +17,11 @@ Let's say you are working on something and you've cd'ed to directories deep in y
 3. Create variables, alises and functions for an environment and don't even worry about unsetting/unaliasing them!
 
 ### Instructions and Usage
-
+ 
 For bash users
 
-1. Copy the envrc file `bash/.bashenvrc` to a location you desire and source it in your `.bashrc`
-2. You then need to mark a folder for storing all environment scripts that SHENV creates for you. This is a folder of your choice. Just set the variable `SHENV_HOME` at line 3 in the envrc file.
+1. Copy the envrc file `bash/.bashenvrc` to a location you desire and source it in your `.bashrc`a
+2. Create a directory with the name `.shenv` in your home directory. This folder is used for storing all environment scripts that SHENV creates for you. If you want to change it, just set the variable `SHENV_HOME` at line 3 in the envrc file, to the directory you want to use as the `SHENV_HOME`.
 3. To create a new environment, use `envcreate <name> <directory>` where **name** is the name of the environment and **directory** is the *absolute* path to the environment's root.
 4. To start an environment, use `envstart <name>` where **name** is the name of the environment
 5. Similarly, to end the environment, use `envend <name>`. 
