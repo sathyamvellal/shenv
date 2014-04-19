@@ -1,6 +1,6 @@
 # This script should be sourced
 
-SHENV_HOME=
+SHENV_HOME=$HOME/.shenv
 
 if [ "$SHENV_HOME" == "" ]; then
     echo "Set the SHENV_HOME variable in the envrc file ..."
