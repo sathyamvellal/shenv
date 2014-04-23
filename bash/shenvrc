@@ -7,6 +7,10 @@ if [ "$SHENV_HOME" == "" ]; then
     return
 fi
 
+if [ ! -d $SHENV_HOME ]; then
+	mkdir $SHENV_HOME
+fi
+
 function envcreate()
 {
     if [ -f $SHENV_HOME/$1-shenv.sh ]; then
