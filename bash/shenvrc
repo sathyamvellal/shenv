@@ -13,9 +13,10 @@ fi
 
 function envcreate()
 {
-    if [ -f $SHENV_HOME/$1-shenv.sh ]; then
+    if [ -d $SHENV_HOME/$1 ]; then
         echo "Environment already exists. Skipping ..."
     else
+        mkdir $SHENV_HOME/$1 -p
         echo \
 "#!/bin/bash
 
@@ -41,16 +42,16 @@ function envend()
     envend_super # This should be executed last
 }
 
-" > $SHENV_HOME/$1-shenv.sh
+" > $SHENV_HOME/$1/shenv.sh
     fi
 }
 
 function envstart()
 {
-    if ls $SHENV_HOME/$1-shenv.sh >/dev/null 2>&1; then
+    if [ -d $SHENV_HOME/$1 ]; then
         if ! type envend >/dev/null 2>&1; then
             ENV_NAME=$1
-            . $SHENV_HOME/$1-shenv.sh
+            . $SHENV_HOME/$1/shenv.sh
         fi
     fi
 }

@@ -1,4 +1,4 @@
-Shell Environments v1.1
+Shell Environments v1.2
 =======================
 
 #### Why do you need this?
@@ -25,7 +25,7 @@ For bash users
 3. To create a new environment, use `envcreate <name> <directory>` where **name** is the name of the environment and **directory** is the *absolute* path to the environment's root.
 4. To start an environment, use `envstart <name>` where **name** is the name of the environment
 5. Similarly, to end the environment, use `envend <name>`. 
-6. You can add all your custom aliases, functions, environment variables in the `envinit` function in `<name>.shenv.sh` that is created at your `SHENV_HOME` directory.
+6. You can add all your custom aliases, functions, environment variables in the `envinit` function in `<name>/shenv.sh` that is created at your `SHENV_HOME` directory.
 
 #### An example (for bash)
 
