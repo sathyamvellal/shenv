@@ -20,7 +20,12 @@ function envcreate()
         echo \
 "#!/bin/bash
 
-ENV_ROOT=\"$2\" # The root directory of the environment
+if [ "$2" != "" ]; then
+    TO_BE_ENV_ROOT=$2
+else
+    TO_BE_ENV_ROOT=$PWD
+fi
+ENV_ROOT=\"$TO_BE_ENV_ROOT\" # The root directory of the environment
 
 ### Enter your variables, aliases and functions, etc in the respective arrays
 function envinit() {
