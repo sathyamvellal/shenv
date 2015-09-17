@@ -3,11 +3,11 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
+    <meta name="viewport" content="width=640">
 
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
 
     <script type="text/javascript" src="javascripts/modernizr.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -47,65 +47,93 @@
 
       <section id="main_content">
         <h1>
-<a name="shell-environments-v11" class="anchor" href="#shell-environments-v11"><span class="octicon octicon-link"></span></a>Shell Environments v1.1</h1>
+<a id="shell-environments-v12" class="anchor" href="#shell-environments-v12" aria-hidden="true"><span class="octicon octicon-link"></span></a>Shell Environments v1.2</h1>
 
 <h4>
-<a name="why-do-you-need-this" class="anchor" href="#why-do-you-need-this"><span class="octicon octicon-link"></span></a>Why do you need this?</h4>
+<a id="why-do-you-need-this" class="anchor" href="#why-do-you-need-this" aria-hidden="true"><span class="octicon octicon-link"></span></a>Why do you need this?</h4>
 
 <p>Let's say you are working on something and you've cd'ed to directories deep in your filesystem, you have set up your own aliases, your own functions and other shell variables which help you in executing what you are working on better. Don't you get irritated if you want to open a terminal and want to cd every time, create these functions/variables/aliases, etc? SHENV helps you in creating mini environments for each of such project directories!</p>
 
 <h3>
-<a name="shell-support" class="anchor" href="#shell-support"><span class="octicon octicon-link"></span></a>Shell Support</h3>
+<a id="shell-support" class="anchor" href="#shell-support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Shell Support</h3>
 
 <ol>
 <li><a href="https://github.com/sathyamvellal/shenv/tree/master/bash/">Bash</a></li>
-</ol><h3>
-<a name="advantagesfeatures" class="anchor" href="#advantagesfeatures"><span class="octicon octicon-link"></span></a>Advantages/Features</h3>
+</ol>
+
+<h3>
+<a id="advantagesfeatures" class="anchor" href="#advantagesfeatures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Advantages/Features</h3>
 
 <ol>
 <li>You can create closed environments for different projects/activities that you do.</li>
 <li>While in an environment, if you just <code>cd</code> in your terminal, you won't end up in the home directory but rather in the environment's root directory which you specify. </li>
 <li>Create variables, alises and functions for an environment and don't even worry about unsetting/unaliasing them!</li>
-</ol><h3>
-<a name="instructions-and-usage" class="anchor" href="#instructions-and-usage"><span class="octicon octicon-link"></span></a>Instructions and Usage</h3>
+</ol>
+
+<h3>
+<a id="instructions-and-usage" class="anchor" href="#instructions-and-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Instructions and Usage</h3>
 
 <p>For bash users</p>
 
 <ol>
-<li>Copy the envrc file <code>bash/.bashenvrc</code> to a location you desire and source it in your <code>.bashrc</code>
-</li>
-<li>You then need to mark a folder for storing all environment scripts that SHENV creates for you. This is a folder of your choice. Just set the variable <code>SHENV_HOME</code> at line 3 in the envrc file.</li>
+<li>Copy the envrc file <code>bash/.bashenvrc</code> to a location you desire and source it in your <code>.bashrc</code>a</li>
+<li>Create a directory with the name <code>.shenv</code> in your home directory. This folder is used for storing all environment scripts that SHENV creates for you. If you want to change it, just set the variable <code>SHENV_HOME</code> at line 3 in the envrc file, to the directory you want to use as the <code>SHENV_HOME</code>.</li>
 <li>To create a new environment, use <code>envcreate &lt;name&gt; &lt;directory&gt;</code> where <strong>name</strong> is the name of the environment and <strong>directory</strong> is the <em>absolute</em> path to the environment's root.</li>
-<li>To start an environment, use <code>envstart &lt;name&gt;</code> where name is the name of the environment</li>
+<li>To start an environment, use <code>envstart &lt;name&gt;</code> where <strong>name</strong> is the name of the environment</li>
 <li>Similarly, to end the environment, use <code>envend &lt;name&gt;</code>. </li>
-<li>You can add all your custom aliases, functions, environment variables in the <code>envinit</code> function in <code>&lt;name&gt;-shenv.sh</code> that is created at your <code>SHENV_HOME</code> directory.</li>
-</ol><h4>
-<a name="an-example-for-bash" class="anchor" href="#an-example-for-bash"><span class="octicon octicon-link"></span></a>An example (for bash)</h4>
+<li>You can add all your custom aliases, functions, environment variables in the <code>envinit</code> function in <code>&lt;name&gt;/shenv.sh</code> that is created at your <code>SHENV_HOME</code> directory.</li>
+</ol>
+
+<h4>
+<a id="an-example-for-bash" class="anchor" href="#an-example-for-bash" aria-hidden="true"><span class="octicon octicon-link"></span></a>An example (for bash)</h4>
 
 <p>There are three associative arrays that SHENV uses. <code>variables</code>, <code>aliases</code> and <code>functions</code>.<br>
 You populate these in the <code>envinit</code> function (as specified above). Like so -</p>
 
-<div class="highlight highlight-bash"><pre>variables<span class="o">[</span>FILE<span class="o">]=</span><span class="s1">'$ENV_ROOT/file.txt'</span>
-aliases<span class="o">[</span>run<span class="o">]=</span><span class="s1">'rake generate</span> <span class="o">&amp;&amp;</span> <span class="s1">rake preview'</span>
-functions<span class="o">[</span>mkcd<span class="o">]=</span><span class="s1">'mkdir -p $1 &amp;&amp; cd $1'</span> <span class="c"># NOTE the single quotes !!</span>
-</pre></div>
+<div class="highlight highlight-source-shell"><pre>variables[FILE]=<span class="pl-s"><span class="pl-pds">'</span>$ENV_ROOT/file.txt<span class="pl-pds">'</span></span>
+aliases[run]=<span class="pl-s"><span class="pl-pds">'</span>rake generate &amp;&amp; rake preview<span class="pl-pds">'</span></span>
+functions[mkcd]=<span class="pl-s"><span class="pl-pds">'</span>mkdir -p $1 &amp;&amp; cd $1<span class="pl-pds">'</span></span> <span class="pl-c"># NOTE the single quotes !!</span></pre></div>
 
 <p>Once you start the environment with <code>envstart</code>, you can use these like any other shell variable, alias or a function. Like so -</p>
 
-<div class="highlight highlight-bash"><pre>cat <span class="nv">$FILE</span>
-run <span class="c"># rake generate &amp;&amp; rake preview</span>
-mkcd foo <span class="c"># create directory 'foo' and cd to it</span>
-</pre></div>
+<div class="highlight highlight-source-shell"><pre>cat <span class="pl-smi">$FILE</span>
+run <span class="pl-c"># rake generate &amp;&amp; rake preview</span>
+mkcd foo <span class="pl-c"># create directory 'foo' and cd to it</span></pre></div>
 
 <p>Note that SHENV is not yet able to update your <code>PATH</code> or <code>CLASSPATH</code> in an environment and later restore them. </p>
 
 <h3>
-<a name="coming-next" class="anchor" href="#coming-next"><span class="octicon octicon-link"></span></a>Coming Next</h3>
+<a id="coming-next" class="anchor" href="#coming-next" aria-hidden="true"><span class="octicon octicon-link"></span></a>Coming Next</h3>
 
 <ol>
 <li>Update variables in an environment and restore them later. (like <code>PATH</code>, <code>CLASSPATH</code>, etc)</li>
 <li>Support for Z-Shell.</li>
 </ol>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>The MIT License (MIT)</p>
+
+<p>Copyright (c) 2014, Sathyam M Vellal</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
       </section>
 
       <footer>
@@ -116,7 +144,7 @@ mkcd foo <span class="c"># create directory 'foo' and cd to it</span>
           <span class="left-tail"></span>
           <span class="right-tail"></span>
         </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
         <span class="octocat"></span>
       </footer>
 
