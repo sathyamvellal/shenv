@@ -1,0 +1,128 @@
+# This script should be sourced
+
+SHENV_HOME=$HOME/.shenv
+
+if [ "$SHENV_HOME" = "" ]; then
+    echo "Set the SHENV_HOME variable in the envrc file ..."
+    return
+fi
+
+if [ ! -d $SHENV_HOME ]; then
+	mkdir $SHENV_HOME
+fi
+
+
+function envcreate()
+{
+    if [ -d $SHENV_HOME/$1 ]; then
+        echo "Environment already exists. Skipping ..."
+    else
+        mkdir -p $SHENV_HOME/$1
+        if [ "$2" != "" ]; then
+            TO_BE_ENV_ROOT=$2
+        else
+            TO_BE_ENV_ROOT=$PWD
+        fi
+        echo \
+"#!/bin/bash
+
+ENV_ROOT=\"$TO_BE_ENV_ROOT\" # The root directory of the environment
+
+### Enter your variables, aliases and functions, etc in the respective arrays
+function envinit() {
+    echo > /dev/null
+    ### Example
+    # variables[variable_name]='value'
+    # aliases[alias_name]='alias_value'
+    # functions[function_name]='function_body #note the single quotes!'
+}
+
+envsetup
+
+### Enter cleanup code in the function below ###
+function envend()
+{
+    ## Enter cleanup code here ##
+
+
+    envend_super # This should be executed last
+}
+
+" > $SHENV_HOME/$1/shenv.sh
+    fi
+}
+
+function envstart()
+{
+    if [ -d $SHENV_HOME/$1 ]; then
+        if ! type envend >/dev/null 2>&1; then
+            ENV_NAME=$1
+            . $SHENV_HOME/$1/shenv.sh
+        fi
+    fi
+}
+
+function envend_super()
+{
+    if type envend >/dev/null 2>&1; then
+        unset envend
+
+        for key in $variables; do unset $key; done
+        for key in $aliases; do unalias $key; done
+        for key in $functions; do unset -f $key; done
+
+        unset variables
+        unset aliases
+        unset functions
+
+        cd $OLD_CWD
+        unset OLD_CWD
+
+        unset ENV_NAME
+        unset ENV_ROOT
+
+        PS1=$OLD_PS1
+        unset OLD_PS1
+        PATH=$OLD_PATH
+        unset OLD_PATH
+
+        unset -f chdir
+        unalias cd
+    fi  
+}
+
+function envsetup()
+{
+    if ! type envend >/dev/null 2>&1; then   
+        OLD_CWD=$PWD
+        OLD_PS1=$PS1
+        OLD_PATH=$PATH
+
+        ### Place custom PS1 here ###
+        # PS1="\u@\h : \W\$ "
+
+        PS1="($ENV_NAME)$PS1"
+
+        function chdir {
+            if [ "$1" = "" ]; then
+                cd $ENV_ROOT
+                PWD="/"
+            else
+                cd $1
+            fi
+        }
+        alias cd='chdir'
+
+        chdir
+
+        declare -a variables
+        declare -a aliases
+        declare -a functions
+
+        envinit
+
+        for key in $variables; do eval "export $key=$variables[$key]"; done
+        for key in $aliases; do alias $key="$aliases[$key]"; done
+        for key in $functions; do eval "$key() { $functions[$key] }"; done
+    fi
+}
