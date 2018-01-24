@@ -65,15 +65,15 @@ function envstart()
 function envend_super()
 {
     if type envend >/dev/null 2>&1; then
-        unset envend
+        unset -f envend
 
-        for key in $variables; do unset $key; done
-        for key in $aliases; do unalias $key; done
-        for key in $functions; do unset -f $key; done
+#        for key in $variables; do unset $key; done
+#        for key in $aliases; do unalias $key; done
+#        for key in $functions; do unset -f $key; done
 
-        unset variables
-        unset aliases
-        unset functions
+#        unset variables
+#        unset aliases
+#        unset functions
 
         cd $OLD_CWD
         unset OLD_CWD
@@ -88,12 +88,12 @@ function envend_super()
 
         unset -f chdir
         unalias cd
-    fi  
+    fi
 }
 
 function envsetup()
 {
-    if ! type envend >/dev/null 2>&1; then   
+    if ! type envend >/dev/null 2>&1; then
         OLD_CWD=$PWD
         OLD_PS1=$PS1
         OLD_PATH=$PATH
@@ -115,14 +115,14 @@ function envsetup()
 
         chdir
 
-        declare -a variables
-        declare -a aliases
-        declare -a functions
+#        declare -a variables
+#        declare -a aliases
+#        declare -a functions
 
         envinit
 
-        for key in $variables; do eval "export $key=$variables[$key]"; done
-        for key in $aliases; do alias $key="$aliases[$key]"; done
-        for key in $functions; do eval "$key() { $functions[$key] }"; done
+#        for key in $variables; do eval "export $key=$variables[$key]"; done
+#        for key in $aliases; do alias $key="$aliases[$key]"; done
+#        for key in $functions; do eval "$key() { $functions[$key] }"; done
     fi
 }
